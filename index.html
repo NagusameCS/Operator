@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPERATOR - Tactical Multiplayer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+</head>
+<body>
+    <!-- MENU SCREEN -->
+    <div id="menuScreen" class="screen active">
+        <div class="menu-container">
+            <h1 class="game-title">OPERATOR</h1>
+            <p class="subtitle">TACTICAL MULTIPLAYER</p>
+            <div class="menu-buttons">
+                <div class="input-group">
+                    <input type="text" id="playerName" placeholder="Enter callsign..." maxlength="16" value="">
+                </div>
+                <button id="createPartyBtn" class="btn btn-primary">CREATE PARTY</button>
+                <div class="join-group">
+                    <input type="text" id="partyCodeInput" placeholder="Party code..." maxlength="8">
+                    <button id="joinPartyBtn" class="btn btn-secondary">JOIN</button>
+                </div>
+                <button id="practiceBtn" class="btn btn-tertiary">PRACTICE (vs AI)</button>
+            </div>
+            <div id="menuStatus" class="status-text"></div>
+        </div>
+    </div>
+
+    <!-- LOBBY SCREEN -->
+    <div id="lobbyScreen" class="screen">
+        <div class="lobby-container">
+            <h2>PARTY LOBBY</h2>
+            <div class="party-code-display">
+                Code: <span id="partyCodeDisplay">------</span>
+                <button id="copyCodeBtn" class="btn-small">COPY</button>
+            </div>
+            <div class="teams-container">
+                <div class="team-panel" id="swatPanel">
+                    <h3>SWAT (OFFENSE)</h3>
+                    <div id="swatPlayerList" class="player-list"></div>
+                    <button id="joinSwatBtn" class="btn btn-blue">JOIN SWAT</button>
+                </div>
+                <div class="team-panel" id="terroristPanel">
+                    <h3>OPPOSITION (DEFENSE)</h3>
+                    <div id="terroristPlayerList" class="player-list"></div>
+                    <button id="joinTerroristBtn" class="btn btn-red">JOIN DEFENSE</button>
+                </div>
+            </div>
+            <div class="lobby-actions">
+                <button id="readyBtn" class="btn btn-primary">READY</button>
+                <button id="leaveBtn" class="btn btn-tertiary">LEAVE</button>
+            </div>
+            <div id="lobbyStatus" class="status-text"></div>
+        </div>
+    </div>
+
+    <!-- GAME SCREEN -->
+    <div id="gameScreen" class="screen">
+        <canvas id="gameCanvas"></canvas>
+        <!-- HUD Overlay -->
+        <div id="hud">
+            <div id="hudTop">
+                <div id="scoreDisplay">
+                    <span id="swatScore" class="score-blue">SWAT: 0</span>
+                    <span id="timerDisplay">3:00</span>
+                    <span id="terroristScore" class="score-red">OPFOR: 0</span>
+                </div>
+                <div id="phaseDisplay">ACTION PHASE</div>
+            </div>
+            <div id="hudBottom">
+                <div id="agentBar"></div>
+            </div>
+            <div id="setupPanel" class="hidden">
+                <h3 id="setupTitle">PLACE OBJECTIVES</h3>
+                <p id="setupInstructions">Click rooms to place hostages and bomb</p>
+                <div id="setupItems">
+                    <button class="setup-item active" data-type="hostage">HOSTAGE (3)</button>
+                    <button class="setup-item" data-type="bomb">BOMB (1)</button>
+                </div>
+                <button id="confirmSetupBtn" class="btn btn-primary">CONFIRM PLACEMENT</button>
+            </div>
+            <div id="interactPrompt" class="hidden">Press SPACE to interact</div>
+            <div id="killFeed"></div>
+        </div>
+        <!-- Phase Overlay -->
+        <div id="phaseOverlay" class="hidden">
+            <h2 id="phaseOverlayText">ROUND START</h2>
+            <p id="phaseOverlaySubtext"></p>
+        </div>
+        <!-- End Screen -->
+        <div id="endScreen" class="hidden">
+            <h2 id="endTitle">MATCH COMPLETE</h2>
+            <div id="endScores"></div>
+            <button id="playAgainBtn" class="btn btn-primary">PLAY AGAIN</button>
+            <button id="backToLobbyBtn" class="btn btn-secondary">BACK TO LOBBY</button>
+        </div>
+    </div>
+
+    <!-- Scripts (order matters) -->
+    <script src="js/utils.js"></script>
+    <script src="js/weapons.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/visibility.js"></script>
+    <script src="js/agent.js"></script>
+    <script src="js/ai.js"></script>
+    <script src="js/network.js"></script>
+    <script src="js/renderer.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
